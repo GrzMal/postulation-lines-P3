@@ -1,0 +1,96 @@
+// For fixed H in P3, tests sequence
+//
+// B(d,L,C,A,B), where
+//
+// d: degree of forms vanishing along:
+//    L free lines
+//    C crosses (two intersecting lines), points of intersection lying in H
+//    (A,B) sub-star configuration in H based on A lines with B missed points
+//
+// specialization:
+//
+// l free lines specialized into H
+// s sundial type specializations (sundial produced from two lines, point of intersection specialized to H)
+// h half of crosses specialized into H
+// c crosses specialized into H
+//
+LIB "inout.lib";
+proc residualP3(list in, poly l, s, h, c) {
+// input list = d, L, C, A, B
+// output list = the same as input
+  list out;
+  out[1]=in[1]-1;
+  out[2]=in[2]-l-2*s+h;
+  out[3]=in[3]+s-c-h;
+  out[4]=l+2*c+h;
+  out[5]=c;
+  return(out);
+}
+proc traceP2(list in, poly l, s, h, c) {
+// input list = d, L, C, A, B
+// output list = lines, double points, "points with direction", a, b - substar, general points
+  list out;
+  out[1]=l+2*c+h;
+  out[2]=s;
+  out[3]=in[3]-c-h;
+  out[4]=in[4];
+  out[5]=in[5];
+  out[6]=in[2]-l-2*s;
+return(out);
+}
+proc edim(list in) {
+  poly ed=(in[1]+1)*(in[1]+2)*(in[1]+3)/6-(in[2]+in[3])*(in[1]+1)-in[3]*in[1]-in[4]*(in[4]-1)/2+in[5];
+  return(ed);
+}
+proc writescheme(list in) {
+"B(degree;L,C,A,B)=B("+string(in[1])+";"+string(in[2])+","+string(in[3])+","+string(in[4])+","+string(in[5])+")";
+}
+proc writetrace(list in) {
+"           T(?,?,?,(?,?),?)=T("+string(in[1])+","+string(in[2])+","+string(in[3])+",("+string(in[4])+","+string(in[5])+"),"+string(in[6])+")";
+}
+proc specialize(list in, poly l, s, h, c) {
+  list out=residualP3(in,l,s,h,c);
+  list tr=traceP2(in,l,s,h,c);
+  "";
+  "scheme:";
+  writescheme(in);
+  "specialization:";
+  "S(l,s,h,c)=S("+string(l)+","+string(s)+","+string(h)+","+string(c)+")";
+  "trace scheme:";
+  writetrace(tr);
+  "residual scheme:";  
+  writescheme(out);
+  "";
+return(out);
+}
+ring R=0,k,dp;
+""; " ------- Computations for reduction lemma, odd case ------ ";
+list scheme4p1=3k,k*(k+5)/2+2,(k2-1)/2,k+1,(k+1)/2;
+list scheme4p2=specialize(scheme4p1,(k-5)/2,0,(k-1)/2,2);
+list scheme4p3=specialize(scheme4p2,0,3,1,(k-1)/2);
+list scheme4p4=specialize(scheme4p3,0,(k+1)/2,1,(k-1)/2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for reduction lemma, even case ------ ";
+scheme4p1=3k,k*(k+5)/2+1,k2/2,k+1,k/2;
+scheme4p2=specialize(scheme4p1,k/2-1,0,k/2,1);
+scheme4p3=specialize(scheme4p2,0,1,0,k/2);
+scheme4p4=specialize(scheme4p3,0,k/2,0,k/2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Trace and residual schemes for B(9;14,4,4,2) ------ ";
+
+// B(9;14,4,4,2)
+list last1=9,14,4,4,2;
+list last2=specialize(last1,3,0,1,0);
+list last3=specialize(last2,1,0,0,1);
+list last4=specialize(last3,0,2,1,1);
+list last5=specialize(last4,0,0,1,1);
+list last6=specialize(last5,2,1,0,0);
+list last7=specialize(last6,2,0,0,0);
+list last8=specialize(last7,1,1,0,0);
+list last9=specialize(last8,0,0,1,1);
