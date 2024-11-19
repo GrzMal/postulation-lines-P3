@@ -43,7 +43,7 @@ proc edim(list in) {
   return(ed);
 }
 proc writescheme(list in) {
-"B(degree;L,C,A,B)=B("+string(in[1])+";"+string(in[2])+","+string(in[3])+","+string(in[4])+","+string(in[5])+")";
+"B(degree;L,C,A,B)=B("+string(in[1])+";"+string(in[2])+","+string(in[3])+",("+string(in[4])+","+string(in[5])+"))";
 }
 proc writetrace(list in) {
 "           T(?,?,?,(?,?),?)=T("+string(in[1])+","+string(in[2])+","+string(in[3])+",("+string(in[4])+","+string(in[5])+"),"+string(in[6])+")";
@@ -84,7 +84,6 @@ pause();
 
 ""; " ------- Trace and residual schemes for B(9;14,4,4,2) ------ ";
 
-// B(9;14,4,4,2)
 list last1=9,14,4,4,2;
 list last2=specialize(last1,3,0,1,0);
 list last3=specialize(last2,1,0,0,1);
@@ -94,3 +93,53 @@ list last6=specialize(last5,2,1,0,0);
 list last7=specialize(last6,2,0,0,0);
 list last8=specialize(last7,1,1,0,0);
 list last9=specialize(last8,0,0,1,1);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for the initial specialization in the case where d=3k and k is odd ------ ";
+scheme4p1=3k,k*(3k+5)/2+1,0,0,0;
+scheme4p2=specialize(scheme4p1,k+1,k*(k-1)/2,0,0);
+scheme4p3=specialize(scheme4p2,0,1,1,(k-1)/2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for the initial specialization in the case where d=3k and k is even ------ ";
+scheme4p1=3k,k*(3k+5)/2+1,0,0,0;
+scheme4p2=specialize(scheme4p1,k+1,k*(k-1)/2,0,0);
+scheme4p3=specialize(scheme4p2,0,0,0,k/2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for the initial specialization in the case where d=3k+1 and k is odd ------ ";
+scheme4p1=3k+1,k*(3k+7)/2+2,0,0,0;
+scheme4p2=specialize(scheme4p1,k+2,k*(k-3)/2,0,0);
+scheme4p3=specialize(scheme4p2,0,1,1,(k-1)/2);
+scheme4p4=specialize(scheme4p3,0,(3k+1)/2,1,(k-1)/2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for the initial specialization in the case where d=3k+1 and k is even ------ ";
+scheme4p1=3k+1,k*(3k+7)/2+2,0,0,0;
+scheme4p2=specialize(scheme4p1,k+2,k*(k-3)/2,0,0);
+scheme4p3=specialize(scheme4p2,0,0,0,k/2);
+scheme4p4=specialize(scheme4p3,0,3k/2,0,k/2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for the initial specialization in the case where d=3k+2 and k is odd ------ ";
+scheme4p1=3k+1,k*(k+13)/2+3,k*(k-3)/2-1,k+2,0;
+scheme4p2=specialize(scheme4p1,0,k+2,1,(k-1)/2);
+scheme4p3=specialize(scheme4p2,k-3,(k-1)/2,0,2);
+
+""; "press enter to resume"; "";
+pause();
+
+""; " ------- Computations for the initial specialization in the case where d=3k+2 and k is even ------ ";
+scheme4p1=3k+1,k*(k+13)/2+3,k*(k-3)/2-1,k+2,0;
+scheme4p2=specialize(scheme4p1,0,k+1,0,k/2);
+scheme4p3=specialize(scheme4p2,k-1,k/2,0,1);
