@@ -80,8 +80,8 @@ proc search(list in) {
     }
   }
 }
-ring R=0,k,dp;
 list searchlist;
+//exemplary case of B(9;14,4,4,2)
 list setup=9,14,4,4,2;
 //procedure search lists all possible residual subschemes for "setup" configuration on the list searchlist
 search(setup);
